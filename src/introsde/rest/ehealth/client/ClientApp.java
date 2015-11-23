@@ -1,6 +1,7 @@
 package introsde.rest.ehealth.client;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.StringReader;
 import java.net.URI;
 
@@ -33,11 +34,14 @@ import org.glassfish.jersey.client.ClientConfig;
 import com.mongodb.util.JSON;
 
 public class ClientApp {
+	public static PrintWriter logger;
+	
 	public static void main(String[] args) throws SAXException, IOException {
 		ClientConfig clientConfig = new ClientConfig();
 		Client client = ClientBuilder.newClient(clientConfig);
 		WebTarget service = client.target(getBaseURI());
 		Response response;
+		logger = new PrintWriter("client.log","UTF-8");
 				
 		String body;
 		int status;
@@ -63,11 +67,11 @@ public class ClientApp {
 		result="Result : OK because >2 " + personArray.length();
 		}
 		
-		System.out.println("Request #1 GET /person Accept: APPLICATION_JSON Content-type: APPLICATION_JSON");
-		System.out.println(result);
-		System.out.println("HTTP Status: " + status);
-		System.out.println("BODY:");
-		System.out.println(body);
+		logger.println("Request #1 GET /person Accept: APPLICATION_JSON Content-type: APPLICATION_JSON");
+		logger.println(result);
+		logger.println("HTTP Status: " + status);
+		logger.println("BODY:");
+		logger.println(body);
 		
 		
 		
@@ -81,11 +85,11 @@ public class ClientApp {
 		body = response.readEntity(String.class);
 		status = response.getStatus();
 								
-		System.out.println("Request #1 GET /person Accept: APPLICATION_XML Content-type: APPLICATION_XML");
-		System.out.println(result);
-		System.out.println("HTTP Status: " + status);
-		System.out.println("BODY:");
-		System.out.println(body);
+		logger.println("Request #1 GET /person Accept: APPLICATION_XML Content-type: APPLICATION_XML");
+		logger.println(result);
+		logger.println("HTTP Status: " + status);
+		logger.println("BODY:");
+		logger.println(body);
 		
 		
 	
@@ -115,11 +119,11 @@ public class ClientApp {
 				{
 				result="Result :ERROR because XML status= " + status;
 				}
-				System.out.println("Request #2 GET /person/"+  firstPersonId  +" Accept: application/XML Content-type: application/XML");
-				System.out.println(result);
-				System.out.println("HTTP Status: " + status);
-				System.out.println("BODY:");
-				System.out.println(body);	
+				logger.println("Request #2 GET /person/"+  firstPersonId  +" Accept: application/XML Content-type: application/XML");
+				logger.println(result);
+				logger.println("HTTP Status: " + status);
+				logger.println("BODY:");
+				logger.println(body);	
 				
 				
 				
@@ -142,11 +146,11 @@ public class ClientApp {
 				{
 				result="Result :ERROR because JSON status= " + status;
 				}								
-				System.out.println("Request #2 GET /person/" + firstPersonId  +" Accept: application/JSON Content-type: application/JSON");
-				System.out.println(result);
-				System.out.println("HTTP Status: " + status);
-				System.out.println("BODY:");
-				System.out.println(body);		
+				logger.println("Request #2 GET /person/" + firstPersonId  +" Accept: application/JSON Content-type: application/JSON");
+				logger.println(result);
+				logger.println("HTTP Status: " + status);
+				logger.println("BODY:");
+				logger.println(body);		
 
 		
 		
@@ -176,11 +180,11 @@ public class ClientApp {
 				}
 				status = response.getStatus();
 		       		        		
-		        System.out.println("Request #3 PUT firstname /person/" + firstPersonId  +" Accept: application/XML Content-type: application/XML");
-		        System.out.println(result);
-		        System.out.println("HTTP Status: "+ status);
-				System.out.println("BODY:");
-				System.out.println(body);
+		        logger.println("Request #3 PUT firstname /person/" + firstPersonId  +" Accept: application/XML Content-type: application/XML");
+		        logger.println(result);
+		        logger.println("HTTP Status: "+ status);
+				logger.println("BODY:");
+				logger.println(body);
 		
 		
 		
@@ -203,11 +207,11 @@ public class ClientApp {
 		status = response.getStatus();
         if (status==201) {result="Result :OK";} else {result="Result :ERROR";}
         		
-        System.out.println("Request #3 PUT firstname /person/" + firstPersonId  +" Accept: application/json Content-type: application/json");
-        System.out.println(result);
-        System.out.println("HTTP Status: "+ status);
-		System.out.println("BODY:");
-		System.out.println(body);
+        logger.println("Request #3 PUT firstname /person/" + firstPersonId  +" Accept: application/json Content-type: application/json");
+        logger.println(result);
+        logger.println("HTTP Status: "+ status);
+		logger.println("BODY:");
+		logger.println(body);
 		
 		
 				
@@ -226,11 +230,11 @@ public class ClientApp {
 		status = response.getStatus();
         if (status==201 | status==200 | status==202) {result="Result :OK";} else {result="Result :ERROR";}
         		
-        System.out.println("Request #4 POST /person Accept: application/json Content-type: application/json");
-        System.out.println(result);
-        System.out.println("HTTP Status: "+ status);
-		System.out.println("BODY:");
-		System.out.println(body);
+        logger.println("Request #4 POST /person Accept: application/json Content-type: application/json");
+        logger.println(result);
+        logger.println("HTTP Status: "+ status);
+		logger.println("BODY:");
+		logger.println(body);
 
 		
 		
@@ -254,11 +258,11 @@ public class ClientApp {
 				status = response.getStatus();
 		        if (status==201 | status==200 | status==202) {result="Result :OK";} else {result="Result :ERROR";}
 		        		
-		        System.out.println("Request #4 POST /person Accept: application/XML Content-type: application/XML");
-		        System.out.println(result);
-		        System.out.println("HTTP Status: "+ status);
-				System.out.println("BODY:");
-				System.out.println(body);
+		        logger.println("Request #4 POST /person Accept: application/XML Content-type: application/XML");
+		        logger.println(result);
+		        logger.println("HTTP Status: "+ status);
+				logger.println("BODY:");
+				logger.println(body);
 
 		
 		
@@ -282,7 +286,7 @@ public class ClientApp {
 		        .accept(MediaType.APPLICATION_JSON)
 		        .delete();
 				
-		System.out.println("Request #5 Delete Accept: application/json Content-type: application/json");
+		logger.println("Request #5 Delete Accept: application/json Content-type: application/json");
 		
 		// R1 is sent
 		response = service.path("person/"+lastId)
@@ -300,9 +304,9 @@ public class ClientApp {
 		{
 		result="Result :ERROR because JSON status= " + status;
 		}								
-		System.out.println("Result: "+ result);
-		System.out.println("HTTP Status: "+ status);
-		System.out.println("BODY:----------------------------------" );	
+		logger.println("Result: "+ result);
+		logger.println("HTTP Status: "+ status);
+		logger.println("BODY:----------------------------------" );	
 		
 		
 		
@@ -319,16 +323,16 @@ public class ClientApp {
 		
 		body = response.readEntity(String.class);
 		status = response.getStatus(); 
-		System.out.println("Request #6 GET /measuretype Accept: application/XML Content-type: application/XML");
+		logger.println("Request #6 GET /measuretype Accept: application/XML Content-type: application/XML");
 		
 		Document doc = convertStringToDocument(body);
 		NodeList measure_types = doc.getElementsByTagName("measureType");
 		if (measure_types.getLength()<3){result = "ERROR";}else{result="OK";}
 		
-		System.out.println("Result: " +result);
-		System.out.println("HTTP Status: " + status);
-		System.out.println("BODY:");
-		System.out.println(body);
+		logger.println("Result: " +result);
+		logger.println("HTTP Status: " + status);
+		logger.println("BODY:");
+		logger.println(body);
 
 		
 			
@@ -343,11 +347,11 @@ public class ClientApp {
 		
 		body = response.readEntity(String.class);
 		status = response.getStatus(); 
-		System.out.println("Request #6 GET /measuretype Accept: application/json Content-type: application/json");
-		System.out.println("HTTP Status: " + status);
-		System.out.println("Result: " +result);
-		System.out.println("BODY:");
-		System.out.println(body);
+		logger.println("Request #6 GET /measuretype Accept: application/json Content-type: application/json");
+		logger.println("HTTP Status: " + status);
+		logger.println("Result: " +result);
+		logger.println("BODY:");
+		logger.println(body);
 				
 		
 		
@@ -363,21 +367,21 @@ public class ClientApp {
 				.get();
 		body = response.readEntity(String.class);
 		status = response.getStatus(); 
-		System.out.println("Request #7 GET /person/{id}/{measureType} Accept: application/XML Content-type: application/XML");
+		logger.println("Request #7 GET /person/{id}/{measureType} Accept: application/XML Content-type: application/XML");
 		
 		Document doc2 = convertStringToDocument(body);
 		NodeList hmhs = doc2.getElementsByTagName("healthMeasureHistory");
 		if (hmhs.getLength() > 0){result = "OK";}else{result="ERROR";}
-		System.out.println("Result: "+ result);
-		System.out.println("HTTP Status: " + status);
-		System.out.println("BODY:");
-		System.out.println(body);
+		logger.println("Result: "+ result);
+		logger.println("HTTP Status: " + status);
+		logger.println("BODY:");
+		logger.println(body);
 		
 				
 		
 		NodeList firstHmhID = doc2.getElementsByTagName("mid");
 		String firstMid = firstHmhID.item(0).getTextContent();
-		System.out.println("----------------------------"+firstMid);
+		logger.println("----------------------------"+firstMid);
 		
 		
 		
@@ -388,11 +392,11 @@ public class ClientApp {
 				.get();
 		body = response.readEntity(String.class);
 		status = response.getStatus(); 
-		System.out.println("Request #7 GET /person/{id}/{measureType} Accept: application/json Content-type: application/json");
-		System.out.println("Result: "+ result);
-		System.out.println("HTTP Status: " + status);
-		System.out.println("BODY:");
-		System.out.println(body);
+		logger.println("Request #7 GET /person/{id}/{measureType} Accept: application/json Content-type: application/json");
+		logger.println("Result: "+ result);
+		logger.println("HTTP Status: " + status);
+		logger.println("BODY:");
+		logger.println(body);
 		
 		
 		
@@ -407,14 +411,14 @@ public class ClientApp {
 		body = response.readEntity(String.class);
 		status = response.getStatus(); 
 		
-		System.out.println("Request #7 R#7 GET person/{id}/{measureType}/{mid} Accept: application/XML Content-type: application/XML");
+		logger.println("Request #7 R#7 GET person/{id}/{measureType}/{mid} Accept: application/XML Content-type: application/XML");
 		if (status==200){result="OK";}else{result="ERROR";}
 		
 		
-		System.out.println("Result: "+ result);
-		System.out.println("HTTP Status: " + status);
-		System.out.println("BODY:");
-		System.out.println(body);
+		logger.println("Result: "+ result);
+		logger.println("HTTP Status: " + status);
+		logger.println("BODY:");
+		logger.println(body);
 		
 		
 	
@@ -429,14 +433,14 @@ public class ClientApp {
 				body = response.readEntity(String.class);
 				status = response.getStatus(); 
 				
-				System.out.println("Request #7 R#7 GET person/{id}/{measureType}/{mid} Accept: application/JSON Content-type: application/JSON");
+				logger.println("Request #7 R#7 GET person/{id}/{measureType}/{mid} Accept: application/JSON Content-type: application/JSON");
 				if (status==200){result="OK";}else{result="ERROR";}
 				
 				
-				System.out.println("Result: "+ result);
-				System.out.println("HTTP Status: " + status);
-				System.out.println("BODY:");
-				System.out.println(body);
+				logger.println("Result: "+ result);
+				logger.println("HTTP Status: " + status);
+				logger.println("BODY:");
+				logger.println(body);
 		
 		
 		
@@ -452,7 +456,7 @@ public class ClientApp {
 				.get();
 		body = response.readEntity(String.class);
 		status = response.getStatus(); 
-		System.out.println("Request #9999 GET /person/{id}/{measureType} Accept: application/XML Content-type: application/XML");
+		logger.println("Request #9999 GET /person/{id}/{measureType} Accept: application/XML Content-type: application/XML");
 		
 		doc = convertStringToDocument(body);
 		NodeList measurements = doc.getElementsByTagName("healthMeasureHistory");
@@ -484,12 +488,12 @@ public class ClientApp {
 		
 		
 		if ((lastControl-firstControl)==1){result = "OK";}else{result="ERROR";}
-		System.out.println("Result: "+ result);
-		System.out.println("HTTP Status: " + status);
-		System.out.println("firstttt: " + firstControl);
-		System.out.println("lastttt: " + lastControl);
-		System.out.println("BODY:");
-		System.out.println(body);
+		logger.println("Result: "+ result);
+		logger.println("HTTP Status: " + status);
+		logger.println("firstttt: " + firstControl);
+		logger.println("lastttt: " + lastControl);
+		logger.println("BODY:");
+		logger.println(body);
 		
 		
 		
@@ -505,7 +509,7 @@ public class ClientApp {
 				.get();
 		body = response.readEntity(String.class);
 		status = response.getStatus(); 
-		System.out.println("Request #9999 GET /person/{id}/{measureType} Accept: application/JSON Content-type: application/JSON");
+		logger.println("Request #9999 GET /person/{id}/{measureType} Accept: application/JSON Content-type: application/JSON");
 		
 		firstControl+=1;
 		
@@ -529,15 +533,15 @@ public class ClientApp {
 		
 			
 		if ((lastControl-firstControl)==1){result = "OK";}else{result="ERROR";}
-		System.out.println("Result: "+ result);
-		System.out.println("HTTP Status: " + status);
-		System.out.println("firstttt: " + firstControl);
-		System.out.println("lastttt: " + lastControl);
-		System.out.println("BODY:");
-		System.out.println(body);
+		logger.println("Result: "+ result);
+		logger.println("HTTP Status: " + status);
+		logger.println("firstttt: " + firstControl);
+		logger.println("lastttt: " + lastControl);
+		logger.println("BODY:");
+		logger.println(body);
 		
 		
-		
+		logger.close();
 		
 		
 	}
@@ -550,9 +554,9 @@ public class ClientApp {
 			NodeList nodes = doc.getElementsByTagName("idPerson");
 			String firstpersonId = nodes.item(0).getTextContent();
 							
-			System.out.println("--------------------------");
-			System.out.println("First Peopleid =" +firstpersonId);
-			System.out.println("--------------------------");
+			logger.println("--------------------------");
+			logger.println("First Peopleid =" +firstpersonId);
+			logger.println("--------------------------");
 			
 			return firstpersonId;
 	}
@@ -566,9 +570,9 @@ public class ClientApp {
 				int lenght = nodes.getLength();
 				String lastpersonId = nodes.item(lenght-1).getTextContent();				
 			
-				System.out.println("--------------------------");
-				System.out.println("Last Peopleid =" +lastpersonId);
-				System.out.println("--------------------------");
+				logger.println("--------------------------");
+				logger.println("Last Peopleid =" +lastpersonId);
+				logger.println("--------------------------");
 				
 				return lastpersonId;
 		}
@@ -592,7 +596,7 @@ public class ClientApp {
 
 	private static URI getBaseURI() {
 		return UriBuilder.fromUri(
-				"http://localhost:5700/sdelab").build();
+				"http://morning-waters-9978.herokuapp.com/sdelab").build();
 	}
 	
 	
