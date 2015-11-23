@@ -106,7 +106,7 @@
                 </fileset>
             </copy>
         </target>
-        <target name="start">
+        <target name="start" depends="install">
             <echo message="app start introsde.rest.ehealth.App in ${build.dir}" />
             <java classname="introsde.rest.ehealth.App" classpath="${build.dir}" fork="true">
                 <arg value="$JAVA_OPTS  -cp" />
@@ -119,7 +119,7 @@
                 </classpath>
             </java>
         </target>
-    	 <target name="start.client">
+    	 <target name="start.client" depends="install">
     	            <echo message="app start introsde.rest.ehealth.client.ClientApp in ${build.dir}" />
     	            <java classname="introsde.rest.ehealth.client.ClientApp" classpath="${build.dir}" fork="true">
     	                <arg value="$JAVA_OPTS  -cp" />
