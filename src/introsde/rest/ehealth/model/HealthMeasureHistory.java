@@ -143,7 +143,6 @@ public class HealthMeasureHistory implements Serializable {
 		return list;
 	}
 
-	// check it, we created with ana 
 	public static HealthMeasureHistory saveHealthMeasureHistory(int pid, String mType, HealthMeasureHistory hmh) {
 		Person newperson = Person.getPersonById(pid);
 		hmh.setPerson(newperson);
