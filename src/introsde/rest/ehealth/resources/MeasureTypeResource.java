@@ -45,7 +45,7 @@ public class MeasureTypeResource {
 	@PersistenceContext(unitName = "introsde-jpa", type = PersistenceContextType.TRANSACTION)
 	private EntityManagerFactory entityManagerFactory;
 
-	// Bishh ile eklendi incele measure tpye ile iletişiyor
+	
 	@GET
 	@Produces({ MediaType.TEXT_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public MeasureType getMeasuresBrowser() {

@@ -121,9 +121,8 @@ public class Person implements Serializable {
 		return list;
 	}
 
-	//buraya bish ile ekledik addmeasreand value kismini sadece
+	
 	public static Person savePerson(Person p) {
-		//addMeasuresAndValues(p);
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
