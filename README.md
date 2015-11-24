@@ -5,7 +5,7 @@ For this assignment I worked on my own. The URL of my heroku server is the follo
 
 http://morning-waters-9978.herokuapp.com/sdelab/person/
 
-How to run
-Server side --> ant start
-Client side --> ant client.start
+How to run :
+at Server side --> ant start ///
+at Client side --> ant client.start
 
